@@ -23,6 +23,16 @@ class prototypeTemplate
 		{
 			$keys = $m['2'];
 			$html = $this->template;
+			
+			if( is_array($data) )
+			{
+				$data=(object)$data;
+			}
+			
+			if( !is_object($data) )
+			{
+				return null;
+			}
 
 			$done = array();
 			foreach( $m['3'] as $i => $key )
@@ -33,7 +43,7 @@ class prototypeTemplate
 				}else{
 					$html = str_replace( $keys[ $i ], '', $html );
 				}
-				$done[ $data->key ]='';
+				$done[ $data->$key ]='';
 			}
 			unset( $keys, $done, $m );
 			return $html;
